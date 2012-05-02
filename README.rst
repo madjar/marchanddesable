@@ -3,6 +3,17 @@ marchanddesable
 
 Turn off your server when you sleep.
 
+Install
+-------
+
+`Marchanddesable` is on pypi_, so this should do the trick :
+
+    pip install marchanddesable
+
+.. _pypi: https://github.com/madjar/marchanddesable
+
+Arch users, you can install `marchanddesable` from AUR.
+
 Usage
 -----
 Halt the current machines 5 minutes after both 192.168.0.1 and 192.168.0.2 stop pinging::
