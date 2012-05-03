@@ -14,7 +14,7 @@ class MarchandTestCase(unittest.TestCase):
         self.addCleanup(patcher.stop)
         last_awake = patcher.start()
 
-        value = 123456789
+        value = 13370 # It's during the night
         self.time = value
 
         def fake_save():
@@ -39,7 +39,7 @@ class MarchandTestCase(unittest.TestCase):
 
         marchanddesable.tick(['192.168.0.1'])
 
-        online.assert_called_with('192.168.0.1')
+        online.assert_any_called_with('192.168.0.1')
         self.assertFalse(shutdown.called)
 
     def test_shutdown_after_exactly_5_minutes_when_alone(self, online, shutdown):
@@ -48,7 +48,7 @@ class MarchandTestCase(unittest.TestCase):
             self.time += 60
             marchanddesable.tick(['192.168.0.1'])
 
-        online.return_value = False
+        online.side_effect = lambda x: x == '8.8.8.8'
         marchanddesable.tick(['192.168.0.1'])
         self.time += 300
         marchanddesable.tick(['192.168.0.1'])

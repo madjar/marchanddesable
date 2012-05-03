@@ -35,3 +35,5 @@ These features may or may not be implemented at some point :
 - Do some useful logging
 
 If you want any of those, or anything else, give me a shout.
+
+Also, I wrote this to scratch my own itch, but if you find any use to this but are annoyed but the hard-coded values and rules, tell me and I'll fix that.

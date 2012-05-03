@@ -36,6 +36,14 @@ def last_awake():
 # At last, the show can start
 
 def should_turn_off(machines):
+    if not online('8.8.8.8'):
+        # If I can access google, maybe I'm off the network. Better do nothing this time
+        return False
+
+    if 7 < datetime.datetime.now().hour < 23:
+        # I turn my computer off during the day, but I don't want the server to turn off
+        return False
+
     if any(online(machine) for machine in machines):
         return False
     return True
