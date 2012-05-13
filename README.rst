@@ -32,7 +32,6 @@ TODO
 These features may or may not be implemented at some point :
 
 - Play a sound to warn when the machines stopped pinging
-- Do some useful logging
 
 If you want any of those, or anything else, give me a shout.
 

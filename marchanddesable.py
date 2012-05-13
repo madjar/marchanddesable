@@ -1,8 +1,9 @@
+#!/usr/bin/python3
 import argparse
 import datetime
-import pickle
 import subprocess
 import time
+import logging
 
 
 AWAKE_FILE = '/tmp/marchanddesable'
@@ -38,20 +39,25 @@ def last_awake():
 def should_turn_off(machines):
     if not online('8.8.8.8'):
         # If I can access google, maybe I'm off the network. Better do nothing this time
+        logging.info('Internet connection has been lost, doing nothing.')
         return False
 
     if 7 < datetime.datetime.now().hour < 23:
         # I turn my computer off during the day, but I don't want the server to turn off
+        logging.info("We're in the middle of the day, doing nothing.")
         return False
 
     if any(online(machine) for machine in machines):
+        logging.info('A machine is up, doing nothing.')
         return False
     return True
 
 
 def tick(machines):
     if should_turn_off(machines):
-        if (datetime.datetime.now() - last_awake()).seconds > 5*60:
+        time_since_condition_met = (datetime.datetime.now() - last_awake()).seconds
+        logging.info('All conditions for shutdown have been met for %s seconds.', time_since_condition_met)
+        if time_since_condition_met > 5*60:
             shutdown()
     else:
         save_awake()
@@ -71,6 +77,8 @@ def main():
         help='A machine to check')
     parser.add_argument('--loop', '-l', action='store_true',
         help='Repeat the check every minutes instead of checking once')
+
+    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
     args = parser.parse_args()
     if args.loop:
