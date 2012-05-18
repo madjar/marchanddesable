@@ -3,6 +3,13 @@ marchanddesable
 
 Turn off your server when you sleep.
 
+What it does
+------------
+
+Give it some IPs, and it will call halt five minutes after the given computers have stopped pinging. Except if we are
+in the middle of the day or if we are disconnected from the internet (because we don't want the computer to stop just
+because the network went off).
+
 Install
 -------
 
@@ -32,7 +39,7 @@ TODO
 These features may or may not be implemented at some point :
 
 - Play a sound to warn when the machines stopped pinging
+- A way to tell it not to halt the computer tonight without having to disable it
+- A way to change the rules without having to modify the script
 
 If you want any of those, or anything else, give me a shout.
-
-Also, I wrote this to scratch my own itch, but if you find any use to this but are annoyed but the hard-coded values and rules, tell me and I'll fix that.
