@@ -5,7 +5,7 @@ readme = os.path.join(os.path.dirname(__file__), 'README.rst')
 
 setup(
     name='marchanddesable',
-    version='0.1',
+    version='0.2',
     url='https://github.com/madjar/marchanddesable',
     license='ISC',
     author='Georges Dubus',
