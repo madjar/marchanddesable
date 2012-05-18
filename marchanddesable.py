@@ -16,7 +16,7 @@ def online(server):
 
 
 def shutdown():
-    subprocess.call(['halt'])
+    subprocess.call(['/sbin/halt'])
 
 
 # Then, let's define how we keep our state
