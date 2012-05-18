@@ -25,13 +25,14 @@ Arch users, you can install `marchanddesable` from AUR.
 
 Usage
 -----
-To halt the current machines 5 minutes after both 192.168.0.1 and 192.168.0.2 stop pinging, just execute this often enough (every minute in your cron, for example)::
+To halt the current machines 5 minutes after both 192.168.0.1 and 192.168.0.2 stop pinging,
+put this in your crontab. It will also log to the given file and rotate every night::
 
-    * * * * *       /home/madjar/marchanddesable.py 192.168.0.2 192.168.0.10 2>> /var/log/marchanddesable.log
+    * * * * *       /home/madjar/marchanddesable.py 192.168.0.2 192.168.0.10 -f /var/log/marchanddesable.log
 
 If you don't like cron, and think running daemon or programs in screen are better, you can use ::
 
-    marchand 192.168.0.1 192.168.0.2
+    marchand -l 192.168.0.1 192.168.0.2
 
 TODO
 ----

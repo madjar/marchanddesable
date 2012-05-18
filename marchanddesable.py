@@ -4,6 +4,7 @@ import datetime
 import subprocess
 import time
 import logging
+import logging.handlers
 
 
 AWAKE_FILE = '/tmp/marchanddesable'
@@ -71,16 +72,31 @@ def loop(machines):
         time.sleep(60)
 
 
+def configure_logging(handler):
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+
 def main():
     parser = argparse.ArgumentParser(description='Halt the current machine 5 minutes after all the given machines are down.')
     parser.add_argument('machines', metavar='machine', nargs='+',
         help='A machine to check')
     parser.add_argument('--loop', '-l', action='store_true',
         help='Repeat the check every minutes instead of checking once')
-
-    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
+    parser.add_argument('--file', '-f', action='store',
+        help='a file to log to. If no file is specified, logs to stderr')
 
     args = parser.parse_args()
+
+    if args.file:
+        configure_logging(logging.handlers.TimedRotatingFileHandler(args.file, when='midnight', backupCount=7))
+    else:
+        configure_logging(logging.StreamHandler())
+
     if args.loop:
         loop(args.machines)
     else:
